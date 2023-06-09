@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: Sachin.Yadav
+Build-Jdk: 16.0.1
+Class-Path: libs/amqp-client-5.17.0.jar libs/slf4j-api-1.7.36.jar libs/l
+ og4j-core-2.20.0.jar libs/log4j-api-2.20.0.jar libs/commons-cli-1.5.0.j
+ ar libs/commons-io-2.12.0.jar libs/jackson-databind-2.15.2.jar libs/jac
+ kson-annotations-2.15.2.jar libs/jackson-core-2.15.2.jar
+Main-Class: com.example.rabbitmq.Main
+Created-By: Maven Integration for Eclipse
+
