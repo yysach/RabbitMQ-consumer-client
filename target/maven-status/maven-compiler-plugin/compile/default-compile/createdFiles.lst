@@ -2,3 +2,4 @@ com\example\rabbitmq\MQConnection.class
 com\example\rabbitmq\consumer\EventMQConsumer.class
 com\example\rabbitmq\util\FileIO.class
 com\example\rabbitmq\Main.class
+com\example\rabbitmq\MQReadChannel.class

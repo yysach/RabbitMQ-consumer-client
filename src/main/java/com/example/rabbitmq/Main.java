@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,7 +42,7 @@ public class Main {
 
 		try {
 			commandLine = parser.parse(options, args);
-		} catch (ParseException ex) {
+		} catch (Exception ex) {
 			logger.error("got cmdline parser exception", ex);
 			System.exit(0);
 		}
