@@ -18,25 +18,25 @@ public class MQReadChannel {
 	private static final boolean DURABLE = true;
 	private static final boolean EXCLUSIVE = false;
 	private static final boolean AUTO_DELETE = false;
-	private static final boolean AUTO_ACK = false;
-	private static final Map<String, Integer> ARGS = Collections.singletonMap("x-message-ttl", Integer.valueOf(900000));
+	private static final boolean AUTO_ACK = true;
+	private static final Map<String, Object> ARGS = Collections.singletonMap("x-message-ttl", (Object)Integer.valueOf(900000));
 	
 	private final String queueName;
 	private final String routingKey;
+	private final boolean createQueue;
 
-	public MQReadChannel(String messageQueue) {
+	public MQReadChannel(String messageQueue, boolean createQueue) {
 		// TODO: providing same routing key as queueName
 		this.queueName = messageQueue;
 		this.routingKey = messageQueue;
+		this.createQueue = createQueue;
 	}
 
 	private void bindQueue(Channel channel, String exchangeName) throws IOException {
-		/*
-		 * TODO: declare queue here use channel.queueDeclare(parameters);
-		 * channel.queueBind(this.queueName, exchangeName, this.routingKey);
-		 */
-
-		
+		if (this.createQueue) {
+			channel.queueDeclare(this.queueName, DURABLE, EXCLUSIVE, AUTO_DELETE, ARGS);
+		}
+		channel.queueBind(this.queueName, exchangeName, this.routingKey);
 		channel.basicQos(PREFETCH_COUNT);
 	}
 
@@ -45,7 +45,7 @@ public class MQReadChannel {
 		bindQueue(channel, exchangeName);
 
 		// providing consumer here
-		channel.basicConsume(this.queueName, true, new EventMQConsumer(channel, this.queueName));
+		channel.basicConsume(this.queueName, AUTO_ACK, new EventMQConsumer(channel, this.queueName));
 		logger.info(" Ready to consumer messages -------");
 	}
 

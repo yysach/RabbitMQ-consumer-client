@@ -15,11 +15,14 @@ public class MQConnection {
 	private String hostName;
 	private String messageQueue;
 	private Integer port;
+	private boolean createQueue;
+	private static final String EXCHANGE_NAME = "fanoutExchange";
 
-	public MQConnection(String hostName, Integer port, String messageQueue) {
+	public MQConnection(String hostName, Integer port, String messageQueue, boolean createQueue) {
 		this.hostName = hostName;
 		this.port = port;
 		this.messageQueue = messageQueue;
+		this.createQueue = createQueue;
 	}
 
 	public void connectToMQBroker() throws IOException, TimeoutException {
@@ -40,7 +43,7 @@ public class MQConnection {
 		logger.info(" Connected to MQBroker --------");
 
 		// giving empty string for default exchange
-		new MQReadChannel(this.messageQueue).openReadChannel(connection, "");
+		new MQReadChannel(this.messageQueue, this.createQueue).openReadChannel(connection, EXCHANGE_NAME);
 	}
 
 }
