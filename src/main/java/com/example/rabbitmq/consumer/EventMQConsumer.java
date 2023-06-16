@@ -30,9 +30,15 @@ public class EventMQConsumer extends DefaultConsumer {
 			throws IOException {
 		String message = new String(body, "UTF-8");
 		logger.debug("Message Consumed : " + message);
-		processNotification(message);
+		String routingKey = envelope.getRoutingKey();
+		long deliveryTag = envelope.getDeliveryTag();
+		logger.debug("RoutingKey : " + routingKey);
+		logger.debug("deliveryTag : " + deliveryTag);
+
+		// processNotification(message);
 		countEventConsumed++;
 		logger.info("Number of event consumed : " + countEventConsumed);
+		this.getChannel().basicAck(deliveryTag, false);
 	}
 
 	private void processNotification(String message) {

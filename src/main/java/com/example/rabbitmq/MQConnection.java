@@ -43,6 +43,8 @@ public class MQConnection {
 		logger.info(" Connected to MQBroker --------");
 
 		// giving empty string for default exchange
+		// opening two channel
+		new MQReadChannel(this.messageQueue, this.createQueue).openReadChannel(connection, EXCHANGE_NAME);
 		new MQReadChannel(this.messageQueue, this.createQueue).openReadChannel(connection, EXCHANGE_NAME);
 	}
 

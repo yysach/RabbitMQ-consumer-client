@@ -18,7 +18,7 @@ public class MQReadChannel {
 	private static final boolean DURABLE = true;
 	private static final boolean EXCLUSIVE = false;
 	private static final boolean AUTO_DELETE = false;
-	private static final boolean AUTO_ACK = true;
+	private static final boolean AUTO_ACK = false;
 	private static final Map<String, Object> ARGS = Collections.singletonMap("x-message-ttl", (Object)Integer.valueOf(900000));
 	
 	private final String queueName;
